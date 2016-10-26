@@ -38,9 +38,9 @@
 		</dependency>
 
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
@@ -54,7 +54,7 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -76,13 +76,13 @@
 			<artifactId>log4j-jcl</artifactId>
 			<version>2.5</version>
 		</dependency>
-		
-<!-- 		<dependency> -->
-<!-- 	        <groupId>javax.servlet</groupId> -->
-<!-- 	        <artifactId>javax.servlet-api</artifactId> -->
-<!-- 	        <scope>provided</scope> -->
-<!-- 		</dependency> -->
-		
+
+		<!-- <dependency> -->
+		<!-- <groupId>javax.servlet</groupId> -->
+		<!-- <artifactId>javax.servlet-api</artifactId> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+
 	</dependencies>
 
 	<build>
@@ -91,8 +91,46 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
 		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>lcl</id>
+
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+			<properties>
+				<debug_flag>true</debug_flag>
+				<log_level>debug</log_level>
+				<log_file_path>./logs</log_file_path>
+			</properties>
+		</profile>
+		<profile>
+			<id>pro</id>
+
+			<properties>
+				<debug_flag>false</debug_flag>
+				<log_level>info</log_level>
+				<log_file_path>/var/log/tomcat8/tools</log_file_path>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>

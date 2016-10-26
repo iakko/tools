@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Configuration>
-<Configuration status="INFO">
+<Configuration status="@log_level@">
 
 	<Appenders>
-		<RollingFile name="CommonFile" fileName="common.log" filePattern="common_%d{yyyy-MM-dd}.log.gz">
+		<RollingFile name="CommonFile" fileName="@log_file_path@/common.log" filePattern="@log_file_path@/common_%d{yyyy-MM-dd}.log.gz">
 			<PatternLayout pattern="%highlight{[%5p] (%t) %d [%c{1.}:%M:%L] - %m%n}" />
 			<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
 		</RollingFile>
@@ -14,11 +14,11 @@
 	</Appenders>
 
 	<Loggers>
-		<Root level="INFO">
+		<Root level="@log_level@">
 			<AppenderRef ref="STDOUT" />
 		</Root>
 
-		<Logger name="net.iakko" level="INFO" additivity="true">
+		<Logger name="net.iakko" level="@log_level@" additivity="true">
 			<AppenderRef ref="CommonFile" />
 		</Logger>
 	</Loggers>
