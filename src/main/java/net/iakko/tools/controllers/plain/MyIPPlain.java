@@ -22,10 +22,10 @@ public class MyIPPlain
 	private static final Logger	log	= LoggerFactory.getLogger(MyIPPlain.class);
 
 	@Autowired
-	private RequestDAO			ipRequest;
+	private Environment			env;
 
 	@Autowired
-	private Environment			env;
+	private GetIP				getIP;
 
 	@RequestMapping(value = "/plain", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
 	private String plain(HttpServletRequest request, @RequestParam(value = "port", required = false, defaultValue = "false") boolean port)
@@ -34,12 +34,8 @@ public class MyIPPlain
 		String output = "<empty>";
 		try
 		{
-			IP ip = GetIP.retrieveIP(request);
-
-			ipRequest.trace(ip.getIp(), ip.getPort());
-
+			IP ip = getIP.retrieveIP(request);
 			output = ip.getIp() + (port ? ":" + ip.getPort() : "");
-
 			return output;
 		}
 		catch (Exception e)
