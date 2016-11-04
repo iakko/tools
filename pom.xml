@@ -38,8 +38,21 @@
 		</dependency>
 
 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -71,11 +84,6 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-jcl</artifactId>
-			<version>2.5</version>
-		</dependency>
 
 		<!-- <dependency> -->
 		<!-- <groupId>javax.servlet</groupId> -->
@@ -90,6 +98,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<addResources>false</addResources>
+					<folders>
+						<folder>src/main/public</folder>
+					</folders>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -99,6 +113,10 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<filters>
+			<filter>src/main/resources/filters/filter-${profile}.properties</filter>
+		</filters>
 
 		<resources>
 			<resource>
@@ -111,24 +129,20 @@
 	<profiles>
 		<profile>
 			<id>lcl</id>
-
+			
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-
+			
 			<properties>
-				<debug_flag>true</debug_flag>
-				<log_level>debug</log_level>
-				<log_file_path>./logs</log_file_path>
+				<profile>lcl</profile>
 			</properties>
 		</profile>
 		<profile>
 			<id>pro</id>
 
 			<properties>
-				<debug_flag>false</debug_flag>
-				<log_level>info</log_level>
-				<log_file_path>/var/log/tomcat8/tools</log_file_path>
+				<profile>pro</profile>
 			</properties>
 		</profile>
 	</profiles>

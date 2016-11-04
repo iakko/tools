@@ -19,7 +19,7 @@ public class MyIPHTML
 {
 	private static final Logger log = LoggerFactory.getLogger(MyIPHTML.class);
 
-	@RequestMapping(value = "/html", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	@RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	private String html(HttpServletRequest request, @RequestParam(value = "port", required = false, defaultValue = "false") boolean port, Model model)
 	{
 		long ts = System.currentTimeMillis();
