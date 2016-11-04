@@ -15,6 +15,6 @@ public class RequestDAO
 	public void trace(String ip, Integer port, String source)
 	{
 		String sql = "INSERT INTO request (ip, port, date) VALUES (?, ?, ?, ?)";
-		jdbcTemplate.update(sql, new Object[] { ip, port, new Date() });
+		jdbcTemplate.update(sql, new Object[] { ip, port, new Date(), source });
 	}
 }
