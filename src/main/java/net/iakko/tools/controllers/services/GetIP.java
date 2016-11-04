@@ -18,13 +18,14 @@ public class GetIP
 	private RequestDAO ipRequest;
 
 	@RequestMapping(value = "/get_ip", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public IP retrieveIP(HttpServletRequest request)
+	public IP retrieveIP(HttpServletRequest request, String source)
 	{
 		IP ip = new IP();
+		
 		ip.setIp(request.getRemoteAddr());
 		ip.setPort(request.getRemotePort());
 
-		ipRequest.trace(ip.getIp(), ip.getPort());
+		ipRequest.trace(ip.getIp(), ip.getPort(), source);
 
 		return ip;
 	}

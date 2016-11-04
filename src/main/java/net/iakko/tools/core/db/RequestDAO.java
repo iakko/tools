@@ -12,9 +12,9 @@ public class RequestDAO
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public void trace(String ip, Integer port)
+	public void trace(String ip, Integer port, String source)
 	{
-		String sql = "INSERT INTO request (ip, port, date) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO request (ip, port, date) VALUES (?, ?, ?, ?)";
 		jdbcTemplate.update(sql, new Object[] { ip, port, new Date() });
 	}
 }

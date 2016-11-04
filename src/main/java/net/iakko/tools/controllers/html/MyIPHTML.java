@@ -30,7 +30,7 @@ public class MyIPHTML
 		String output = "<empty>";
 		try
 		{
-			IP ip = getIP.retrieveIP(request);
+			IP ip = getIP.retrieveIP(request, "HTML");
 			output = ip.getIp() + (port ? ":" + ip.getPort() : "");
 			model.addAttribute("my_ip", output);
 			return "myip";

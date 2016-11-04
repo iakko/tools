@@ -34,7 +34,7 @@ public class MyIPPlain
 		String output = "<empty>";
 		try
 		{
-			IP ip = getIP.retrieveIP(request);
+			IP ip = getIP.retrieveIP(request, "PLAIN");
 			output = ip.getIp() + (port ? ":" + ip.getPort() : "");
 			return output;
 		}
