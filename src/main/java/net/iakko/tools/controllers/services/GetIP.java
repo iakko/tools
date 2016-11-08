@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.iakko.tools.controllers.services.data.IP;
+import net.iakko.tools.core.Logic;
 import net.iakko.tools.core.db.RequestDAO;
 
 @RestController
@@ -15,18 +16,11 @@ import net.iakko.tools.core.db.RequestDAO;
 public class GetIP
 {
 	@Autowired
-	private RequestDAO ipRequest;
-
+	private Logic logic;
+	
 	@RequestMapping(value = "/get_ip", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public IP retrieveIP(HttpServletRequest request, String source)
+	public IP retrieveIP(HttpServletRequest request)
 	{
-		IP ip = new IP();
-		
-		ip.setIp(request.getRemoteAddr());
-		ip.setPort(request.getRemotePort());
-
-		ipRequest.trace(ip.getIp(), ip.getPort(), source);
-
-		return ip;
+		return logic.getIP(request, "API");
 	}
 }

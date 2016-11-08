@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import net.iakko.tools.controllers.services.GetIP;
 import net.iakko.tools.controllers.services.data.IP;
+import net.iakko.tools.core.Logic;
 
 @Controller
 public class MyIPHTML
@@ -21,8 +21,8 @@ public class MyIPHTML
 	private static final Logger	log	= LoggerFactory.getLogger(MyIPHTML.class);
 
 	@Autowired
-	private GetIP				getIP;
-
+	private Logic logic;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	private String html(HttpServletRequest request, @RequestParam(value = "port", required = false, defaultValue = "false") boolean port, Model model)
 	{
@@ -30,7 +30,7 @@ public class MyIPHTML
 		String output = "<empty>";
 		try
 		{
-			IP ip = getIP.retrieveIP(request, "HTML");
+			IP ip = logic.getIP(request, "HTML");
 			output = ip.getIp() + (port ? ":" + ip.getPort() : "");
 			model.addAttribute("my_ip", output);
 			return "myip";

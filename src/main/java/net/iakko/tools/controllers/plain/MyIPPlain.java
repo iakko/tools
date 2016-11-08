@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.iakko.tools.controllers.services.GetIP;
 import net.iakko.tools.controllers.services.data.IP;
-import net.iakko.tools.core.db.RequestDAO;
+import net.iakko.tools.core.Logic;
 
 @RestController
 public class MyIPPlain
@@ -25,7 +24,7 @@ public class MyIPPlain
 	private Environment			env;
 
 	@Autowired
-	private GetIP				getIP;
+	private Logic				logic;
 
 	@RequestMapping(value = "/plain", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
 	private String plain(HttpServletRequest request, @RequestParam(value = "port", required = false, defaultValue = "false") boolean port)
@@ -34,7 +33,7 @@ public class MyIPPlain
 		String output = "<empty>";
 		try
 		{
-			IP ip = getIP.retrieveIP(request, "PLAIN" );
+			IP ip = logic.getIP(request, "PLAIN");
 			output = ip.getIp() + (port ? ":" + ip.getPort() : "");
 			return output;
 		}
